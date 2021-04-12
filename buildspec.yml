@@ -16,7 +16,7 @@ phases:
       - echo Building the Docker image...          
       - pwd
       - ls -l |grep Dockerf
-      - docker build -t $REPOSITORY_URI:latest .
+      - docker build -t 669189415304.dkr.ecr.ap-southeast-1.amazonaws.com/govtech:latest .
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
   post_build:
     commands:
