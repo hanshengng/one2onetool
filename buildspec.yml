@@ -6,7 +6,7 @@ phases:
       - echo Logging in to Amazon ECR...
       - pip install --upgrade awscli
       - aws --version
-      - $(aws ecr get-login --region ap-southeast-1)
+      - $(aws ecr get-login --no-include-email --region ap-southeast-1)
       - REPOSITORY_URI=669189415304.dkr.ecr.ap-southeast-1.amazonaws.com/govtech
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION)
       - IMAGE_TAG=${COMMIT_HASH:=latest}
