@@ -1,0 +1,9 @@
+version: 0.0
+Resources:
+  - TargetService:
+      Type: AWS::ECS::Service
+      Properties:
+        TaskDefinition: "arn:aws:ecs:ap-southeast-1:669189415304:task-definition/ecsdef:2"
+        LoadBalancerInfo:
+          ContainerName: "webapp1"
+          ContainerPort: 8080
