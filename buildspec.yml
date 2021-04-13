@@ -1,0 +1,40 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Installing npm
+      - npm install
+      - echo testing npm
+      - npm test
+      - echo Logging in to Amazon ECR...
+      - pip install --upgrade awscli
+      - aws --version
+      - $(aws ecr get-login --no-include-email --region ap-southeast-1)
+      - REPOSITORY_URI=669189415304.dkr.ecr.ap-southeast-1.amazonaws.com/one2onerepo
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION)
+      - IMAGE_TAG=${COMMIT_HASH:=latest}
+  install: 
+    commands:      
+      - nohup /usr/local/bin/dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --storage-driver=overlay2 &
+      - timeout 15 sh -c "until docker info; do echo .; sleep 1; done"
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the Docker image...          
+      - pwd
+      - ls -l |grep Dockerfile
+      - docker build -t $REPOSITORY_URI:latest . --build-arg DATA_FILE_PATH=${DATA_FILE}
+      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+  post_build:
+    commands:
+      - echo Build completed
+      - echo Pushing the Docker images...
+      - docker push $REPOSITORY_URI:latest
+      - docker push $REPOSITORY_URI:$IMAGE_TAG
+      - echo Writing definitions file...
+      - printf '[{"name":"project-container","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > package.json
+artifacts:
+    files: 
+      - package.json
+      - imagedefinitions.json
