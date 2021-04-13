@@ -35,6 +35,4 @@ phases:
       - echo Writing definitions file...
       - printf '[{"name":"project-container","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > package.json
 artifacts:
-    files: 
-      - package.json
-      - imagedefinitions.json
+    files: package.json
