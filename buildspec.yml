@@ -23,7 +23,7 @@ phases:
       - echo Build started on `date`
       - echo Building the Docker image...          
       - pwd
-      - ls -l |grep Dockerf
+      - ls -l |grep Dockerfile
       - docker build -t $REPOSITORY_URI:latest . --build-arg DATA_FILE_PATH=${DATA_FILE}
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
   post_build:
