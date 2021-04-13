@@ -1,5 +1,5 @@
-#!/bin/bash
-echo "Stopping and removing the running container"
-cd ~
-docker-compose stop
-docker-compose rm -f
+#!/usr/bin/env bash
+
+set -e
+
+docker rm -f webapp1 || true
