@@ -1,6 +1,6 @@
 [
   {
-    "name": "webapp",
+    "name": "webapp1",
     "imageUri": "669189415304.dkr.ecr.ap-southeast-1.amazonaws.com/one2onerepo:latest"
   }
 ]
