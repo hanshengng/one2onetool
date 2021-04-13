@@ -24,7 +24,7 @@ phases:
       - echo Building the Docker image...          
       - pwd
       - ls -l |grep Dockerfile
-      - docker build -t $REPOSITORY_URI:latest . --build-arg DATA_FILE_PATH=${DATA_FILE} --secret id=npmrc,src=.npmrc
+      - docker build -t $REPOSITORY_URI:latest . --build-arg DATA_FILE_PATH=${DATA_FILE}
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
   post_build:
     commands:
@@ -35,4 +35,6 @@ phases:
       - echo Writing definitions file...
       - printf '[{"name":"project-container","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > package.json
 artifacts:
-    files: package.json
+    files: 
+      - package.json
+      - imagedefinitions.json
