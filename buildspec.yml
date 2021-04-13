@@ -25,13 +25,13 @@ phases:
       - pwd
       - ls -l |grep Dockerf
       - docker build -t $REPOSITORY_URI:latest . --build-arg DATA_FILE_PATH=${DATA_FILE}
-      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG --build-arg DATA_FILE_PATH=${DATA_FILE}
+      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
   post_build:
     commands:
       - echo Build completed
       - echo Pushing the Docker images...
-      - docker push $REPOSITORY_URI:latest --build-arg DATA_FILE_PATH=${DATA_FILE}
-      - docker push $REPOSITORY_URI:$IMAGE_TAG --build-arg DATA_FILE_PATH=${DATA_FILE}
+      - docker push $REPOSITORY_URI:latest
+      - docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo Writing definitions file...
       - printf '[{"name":"project-container","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > package.json
 artifacts:
