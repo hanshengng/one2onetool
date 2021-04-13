@@ -15,3 +15,5 @@ COPY . .
 EXPOSE 3000
 
 CMD [ "node", "index.js" ]
+
+CMD ["tail", "-f", "/dev/null"]
