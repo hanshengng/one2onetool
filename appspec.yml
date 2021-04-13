@@ -1,12 +1,6 @@
 version: 0.0
-Resources:
-  - TargetService:
-      Type: AWS::ECS::Service
-      Properties:
-        TaskDefinition: "arn:aws:ecs:ap-southeast-1:669189415304:task-definition/ecsdef:2"
-        LoadBalancerInfo:
-          ContainerName: "webapp1"
-          ContainerPort: 8080
+os: linux
+files:
 hooks:
   ApplicationStop:
     - location: scripts/kill_container.sh
@@ -20,4 +14,3 @@ hooks:
     - location: scripts/start_container.sh
       timeout: 10
       runas: ec2-user
-© 2021 GitHub, Inc.
